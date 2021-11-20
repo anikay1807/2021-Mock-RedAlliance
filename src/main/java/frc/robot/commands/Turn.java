@@ -5,11 +5,12 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.DriveTrain;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilib.SPI;
+//import edu.wpi.first.wpilib.SPI;
 import com.kauailabs.navx.frc.AHRS;
 
-public class RedTurn extends CommandBase {
+public class Turn extends CommandBase {
 
   private AHRS navx = new AHRS(SPI.Port.kMXP);
 
@@ -20,7 +21,7 @@ public class RedTurn extends CommandBase {
   private int constant = 1;
 
   //Creates a new EncoderDrive.
-  public RedTurn(DriveTrain d, double angle, double speed) {
+  public Turn(DriveTrain d, double angle, double speed) {
     this.d = d;
     this.angle = angle;
     this.speed = speed;
@@ -67,5 +68,5 @@ public void execute() {
   public boolean isFinished() {
     return d.getAngle() > angle;
   }
-  
+
 }

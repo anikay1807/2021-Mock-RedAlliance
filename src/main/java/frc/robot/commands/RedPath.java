@@ -4,16 +4,27 @@
 
 package frc.robot.commands;
 
-import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-//import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.DriveTrain;
 
-public class Path extends SequentialCommandGroup;
+// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
+// information, see:
+// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
+public class RedPath extends SequentialCommandGroup {
+  /** Creates a new RedPath. */
+  DriveTrain dt;
 
-  private RobotContainer rc = new RobotContainer();
-  //private DriveTrain dt = newDriveTrain();
+  public RedPath(DriveTrain dt) {
+    // Add your commands in the addCommands() call, e.g.
+    // addCommands(new FooCommand(), new BarCommand());
+    this.dt = dt;
+    addCommands(new Forward(dt, 1, 0.7),
+                new Turn(dt, 90, 0.7),
+                new Forward(dt, 1, 0.7),
+                new Turn(dt, 90, 0.7),
+                new Forward(dt, 1, 0.7),
+                new Turn(dt, 90, 0.7),
+                new Forward(dt, 1, 0.7));
 
-  //Creates new Path
-  public Path() {
-    addComands(new EncoderDrive)
   }
+}

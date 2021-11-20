@@ -4,36 +4,34 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
-//import org.graalvm.compiler.nodes.java.DynamicNewInstanceNode;
+public class Forward extends CommandBase {
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-
-/** An example command that uses an example subsystem. */
-public class RedForward extends CommandBase {
   private DriveTrain d;
   private double distance;
   private double speed;
   private double error;
 
-  //Cretes a new EncoderDrive
-  public RedForward(DriveTrain d, double distance, double speed) {
-    //Use addRequirements() here to declare subsystem dependencies
+  /** Creates a new EncoderDrive. */
+  public Forward (DriveTrain d, double distance, double speed) {
+    // Use addRequirements() here to declare subsystem dependencies.
     this.d = d;
     this.distance = distance;
     this.speed = speed;
 
     addRequirements(d);
   }
-  
-  //Called when the command is initially scheduled
+
+  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     d.resetEncoders();
   }
 
-  //Called everytime the scheduler runs while the command is scheduled.
+
+  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     error = distance - d.getPosition();
@@ -41,16 +39,20 @@ public class RedForward extends CommandBase {
     speed = error * 0.7;
 
     if(speed > 0.7) {
+      speed = 0.7;
+    }
+
+    if (speed < 0.1) {
       speed = 0.1;
     }
 
-    d.tankDrive(speed,speed);
+    d.tankDrive(speed, speed);
   }
-  
+
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    d.tankDrive(0,0);
+    d.tankDrive(0, 0);
   }
 
   // Returns true when the command should end.
@@ -58,4 +60,5 @@ public class RedForward extends CommandBase {
   public boolean isFinished() {
     return (d.getPosition() < distance);
   }
+
 }
